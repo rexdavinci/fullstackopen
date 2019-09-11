@@ -8,6 +8,7 @@ const Statistics = (props) =>{
   let all
   let average
   let positive      
+
   const handleGood = ()=>{
     setGood(good+1)
   }
@@ -41,6 +42,20 @@ const Statistics = (props) =>{
     return 0
   }
 
+  const checkStat = () =>{
+    return (good === 0 && bad === 0 && neutral === 0) ? (
+      <p>No feedback given</p>
+    ):(
+      <>
+        <p>good {good}</p>
+        <p>neutral {neutral}</p>
+        <p>bad {bad}</p>
+        <p>all {handleAll()}</p>
+        <p>average {handleAverage()}</p>
+        <p>positive {handlePositive()} %</p>
+      </>
+    )
+  }
 
   return(
     <>
@@ -49,22 +64,16 @@ const Statistics = (props) =>{
       <button onClick={handleNeutral}>neutral</button>
       <button onClick={handleBad}>bad</button>
       <h1>statistics</h1>
-      <p>good {good}</p>
-      <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
-      <p>all {handleAll()}</p>
-      <p>average {handleAverage()}</p>
-      <p>positive {handlePositive()} %</p>
+      {checkStat()}  
     </>
   )
 }
+
 
 const App = () => {
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
-
-
 
   return (
     <div>
