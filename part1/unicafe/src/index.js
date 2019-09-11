@@ -2,8 +2,14 @@ import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 
 const Statistic =({text, value})=>{
-  return <p>{text} {value}</p>
+  return (
+    <tr>
+      <td>{text}</td>
+      <td>{value}</td>
+    </tr>
+  )
 }
+
 const Button = ({handle, text})=>{
   return (
     <>
@@ -58,12 +64,25 @@ const Statistics = (props) =>{
       <p>No feedback given</p>
     ):(
       <>
-        <Statistic text='good' value={good}/>
-        <Statistic text='neutral' value={neutral}/>
-        <Statistic text='bad' value={bad}/>
-        <p>all {handleAll()}</p>
-        <p>average {handleAverage()}</p>
-        <p>positive {handlePositive()} %</p>
+        <table>
+          <tbody>
+            <Statistic text='good' value={good}/>
+            <Statistic text='neutral' value={neutral}/>
+            <Statistic text='bad' value={bad}/>
+            <tr>
+              <td>all</td>
+              <td>{handleAll()}</td>
+            </tr>
+            <tr>
+              <td>average</td>
+              <td>{handleAverage()}</td>
+            </tr>
+            <tr>
+              <td>postive</td>
+              <td>{handlePositive()} %</td>
+            </tr>
+          </tbody>
+        </table>
       </>
     )
   }
