@@ -1,29 +1,24 @@
 import React, { useState, useEffect} from 'react'
-import axios from 'axios'
 import Filter from './Filter'
 import PersonForm from './PersonForm'
 import Persons from './Persons'
+import personService from './services/person'
+import Notification from './Notification'
 
 const App = () => {
   const [ persons, setPersons] = useState([]) 
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ searched, setSearched ] = useState([])
+  const [ notifyMessage, setNotification ] = useState({message: '', classType: ''})
 
   useEffect(()=>{
-    axios.get('http://localhost:3001/persons')
+    personService
+    .getAll()
     .then(response => {
       setPersons(response.data)
     })
   }, [])
-
-  const handleSearch = (e) => {
-    const newValue = e.target.value.toLowerCase()
-    const newList = persons.filter(person => {
-      return person.name.toLowerCase().includes(newValue)
-    })
-    return setSearched(newList)
-  }
 
   const handleName = (e)=>{
     setNewName(e.target.value)
@@ -33,35 +28,62 @@ const App = () => {
     setNewNumber(e.target.value)
   }
   
-
   const addPerson=(e)=>{
     e.preventDefault()
     const newPerson = {name: newName, number: newNumber}
     const allPersons = persons.map(person=>person.name)
-    allPersons.includes(newName) ? alert(`${newName} is already added to phonebook`) : setPersons(persons.concat(newPerson))
-    setNewName('')
-    setNewNumber('')
-  }
-
-  const displayPersons = () => {
-    return searched.length > 0 ? (
-      searched.map(person=><p key={person.name}>{person.name} - {person.number}</p>)
+    const personExists  = persons.find(person=>person.name === newPerson.name)
+    return allPersons.includes(newName) ? (
+      window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`) ? (
+        personService
+          .update(personExists.id, {...personExists, number: newPerson.number})
+          .then(response=>{
+            setPersons(persons.map(person => person.id !== personExists.id ? person : response.data))
+            setNotification({message: `Entry ${newPerson.name} updated!`, classType: 'success'})
+            setTimeout(() => {
+              setNotification({})
+            }, 5000);
+          }).catch(error=>{
+            setNotification({message: `Entry ${newPerson.name} has already been removed from database!`, classType: 'error'})
+            setTimeout(() => {
+              setNotification({})
+            }, 5000);
+          })
+          
+        ) : (null)
       ) : (
-        persons.map(person=><p key={person.name}>{person.name} - {person.number}</p>)
-        )
+      personService
+        .create(newPerson)
+        .then(person => {
+          setPersons(persons.concat(person.data))
+          setNotification({message: `Entry ${person.data.name} added!`, classType: 'success'})
+          setNewName('')
+          setNewNumber('')
+          setTimeout(() => {
+            setNotification({})
+          }, 5000);
+        }).catch(error=>{
+          setNotification({message: `Entry ${newPerson.name} has already been removed from database!`, classType: 'error'})
+          setTimeout(() => {
+            setNotification({})
+          }, 5000);
+        })
+      )
   }
 
   return (
     <div>
       <h2>Phonebook</h2>
+      
+      <Notification notification={notifyMessage}/>
 
-      <Filter handleSearch={handleSearch}/>
+      <Filter persons={persons} setSearched={setSearched}/>
 
       <h2>Add a new contact</h2>
       <PersonForm values={{addPerson, newName, newNumber, handleName, handleNumber}}/>
 
       <h2>Numbers</h2>
-        <Persons display={displayPersons} />
+      <Persons values={{setSearched, searched, persons, setPersons, setNotification}} />
     </div>
   )
 }
