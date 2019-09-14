@@ -22,7 +22,7 @@ const Person = ({searched, setSearched, person, persons, setPersons, setNotifica
       .del(id)
       .then(response=>{
         searched ? notify() : 
-          setPersons(searched.filter(person => person.id !== id))
+          setPersons(persons.filter(person => person.id !== id))
           setPersons(persons.filter(person => person.id !== id))
           setNotification({message: `Entry ${name} deleted successfully`, classType: 'success'})
           setTimeout(() => {

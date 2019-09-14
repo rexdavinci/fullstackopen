@@ -5,8 +5,9 @@ const Filter = ({persons, setSearched}) =>{
   const handleSearch = (e) => {
     const newValue = e.target.value.toLowerCase()
     const newList = persons.filter(person => {
-      return person.name.toLowerCase().includes(newValue)
+      return newValue.length === 0 ? null : person.name.toLowerCase().includes(newValue)
     })
+
     return setSearched(newList)
   }
 

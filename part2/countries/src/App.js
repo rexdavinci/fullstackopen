@@ -21,7 +21,7 @@ const App = () => {
   const handleSearch = (e) => {
     const newValue = e.target.value.toLowerCase()
     const newList = countries.filter(country => {
-      return country.name.toLowerCase().includes(newValue)
+      return newValue.length === 0 ? null : country.name.toLowerCase().includes(newValue)
     })
     return setSearched(newList)
   }

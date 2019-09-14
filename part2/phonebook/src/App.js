@@ -83,7 +83,7 @@ const App = () => {
       <PersonForm values={{addPerson, newName, newNumber, handleName, handleNumber}}/>
 
       <h2>Numbers</h2>
-      <Persons values={{setSearched, searched, persons, setPersons, setNotification}} />
+      <Persons values={{setSearched, searched, persons, setPersons,            setNotification}} />
     </div>
   )
 }
