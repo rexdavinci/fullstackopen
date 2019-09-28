@@ -28,7 +28,7 @@ const App = () => {
     setNewNumber(e.target.value)
   }
   
-  const addPerson=(e)=>{
+  const addOrUpdatePerson=(e)=>{
     e.preventDefault()
     const newPerson = {name: newName, number: newNumber}
     const allPersons = persons.map(person=>person.name)
@@ -44,6 +44,7 @@ const App = () => {
               setNotification({})
             }, 5000);
           }).catch(error=>{
+            console.log(typeof (error.response.data))
             setNotification({message: `Entry ${newPerson.name} has already been removed from database!`, classType: 'error'})
             setTimeout(() => {
               setNotification({})
@@ -63,7 +64,8 @@ const App = () => {
             setNotification({})
           }, 5000);
         }).catch(error=>{
-          setNotification({message: `Entry ${newPerson.name} has already been removed from database!`, classType: 'error'})
+          // console.log()
+          setNotification({message: JSON.stringify(error.response.data.error), classType:'error'})
           setTimeout(() => {
             setNotification({})
           }, 5000);
@@ -80,7 +82,7 @@ const App = () => {
       <Filter persons={persons} setSearched={setSearched}/>
 
       <h2>Add a new contact</h2>
-      <PersonForm values={{addPerson, newName, newNumber, handleName, handleNumber}}/>
+      <PersonForm values={{addOrUpdatePerson, newName, newNumber, handleName, handleNumber}}/>
 
       <h2>Numbers</h2>
       <Persons values={{setSearched, searched, persons, setPersons,            setNotification}} />
