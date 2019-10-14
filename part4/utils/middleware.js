@@ -1,17 +1,15 @@
+const logger = require('./logger')
+
 const requestLogger = (request, response, next) => {
   if(request.method === 'POST' || request.method === 'PUT'){
-    console.log(`
-      Method: ${request.method}
-      Path: ${request.path}
-      Body: ${JSON.stringify(request.body)}
-      ----------------------------
-    `)
+    logger.info('Method: ', request.method)
+    logger.info('Method: ', request.path)
+    logger.info('Method: ', request.body)
+    logger.info('----')
   }else{
-    console.log(`
-      Method: ${request.method}
-      Path: ${request.path}
-      ----------------------------
-    `)
+    logger.info('Method: ', request.method)
+    logger.info('Method: ', request.path)
+    logger.info('----')
   }
   next()
 }
@@ -21,7 +19,7 @@ const unknownEndpoint = (request, response) =>{
 }
 
 const errorHandler = (error, request, response, next)=>{
-  console.error(error.message)
+  logger.error(error.message)
   if(error.name === 'CastError' && error.kind === 'ObjectId'){
     return response.status(400).send({error: `malformatted id`})
   } else if(error.name === 'ValidationError'){
