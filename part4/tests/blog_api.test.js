@@ -15,14 +15,13 @@ beforeEach(async ()=>{
   await Promise.all(promiseArray)
 })
 
-describe('where there is initailly, some blogs were saved', ()=>{
+describe('where there were some blogs were saved initially', ()=>{
 
   // 4.8 Blog list tests, step 1
   test('all notes are returned as json', async()=>{
     const response = await api.get('/api/blogs')
     expect(response.body.length).toBe(helper.initialBlogs.length)
   })
-
 })
 
 describe('handling specific blogs', ()=>{
