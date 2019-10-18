@@ -23,7 +23,6 @@ describe('where some blogs were initially saved', ()=>{
     const response = await api.get('/api/blogs')
     expect(response.body.length).toBe(helper.initialBlogs.length)
   })
-
 })
 
 describe('handling specific blogs', ()=>{
