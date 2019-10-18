@@ -16,7 +16,11 @@ beforeEach(async ()=>{
   await Promise.all(promiseArray)
 })
 
+<<<<<<< HEAD
 describe('where some blogs were initially saved', ()=>{
+=======
+describe('where there were some blogs were saved initially', ()=>{
+>>>>>>> aa3e43535c592656326af501a2529064e39bc576
 
   // 4.8 Blog list tests, step 1
   test('all notes are returned as json', async()=>{
