@@ -14,20 +14,26 @@ blogsRouter.get('/', async (request, response, next) => {
 
 blogsRouter.post('/', async (request, response, next) => {
   const { body, token } = request
+  const { author, title, url } = body
   try{
   const verifiedToken = decodedToken(token)
   if(!token || !verifiedToken.id){
     return response.status(401).json({error: 'token is missing or is invalid'})
   }
-
+  // Get user info from the supplied token
   const user = await User.findById(verifiedToken.id)
+  // Ensure no empty blog is saved to the DB
+  if(!author || !title || !url || !user){
+    return response.status(400).json({error: 'enter all fields to create a blog'})
+  }
+  // Create new record
   const blog = new Blog({
     author: body.author,
     title: body.title,
     url: body.url,
     user: user._id
   })
-  
+  // Save record to DB
     const newBlog = await blog.save()
     user.blogs = user.blogs.concat(newBlog._id)
     await user.save()
@@ -54,6 +60,7 @@ blogsRouter.get('/:id', async(request, response, next)=>{
 blogsRouter.put('/:id', async (request, response, next)=>{
   const { body } = request
   const blogUpdate = {
+    ...body,
     likes: Number(body.likes)
   }
 
@@ -80,7 +87,7 @@ blogsRouter.delete('/:id', async(request, response, next)=>{
     }
     const isOwner = blog.user.toString() === verifiedToken.id.toString()
     if(!isOwner){
-      return response.status(401).json({error: 'You do no have permission to delete this blog'})
+      return response.status(401).json({error: 'You do not have permission to delete this blog'})
     }
     await Blog.findByIdAndRemove(params.id)
     response.status(204).end()

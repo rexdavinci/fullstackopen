@@ -1,9 +1,9 @@
 post http://localhost:3003/api/blogs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJleGRhdmluY2kiLCJpZCI6IjVkYTliNzFmNGU2YTMzM2NjNDlkOWE0OSIsImlhdCI6MTU3MTQxMjIwOX0.Yd5CLoN-L6-n7qVaZHZFFEovJULPVf52PcrYXNIQp9A
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJleGRhdmluY2kxIiwiaWQiOiI1ZGE5YzRkN2NiMzg5ZTA4MDQzNTI3ZjAiLCJpYXQiOjE1NzIyNDM3MjV9.ETj4ipMBU3JIUaH3YbPPjjpjtxPrRSmEgDD7tQMq9_c
 
 {
-  "author": "Rex",
-  "title": "Javascript is coming I",
-  "url": "www.google.com"
+  "author": "Rex Davinci",
+  "title": "Python is great",
+  "url": "abdhafizahmed.com"
 }
