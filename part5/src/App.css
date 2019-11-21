@@ -33,10 +33,10 @@
 
 .success, .error{
   font-size: 12px;
-  padding: 1px;
-  max-width: 300px;
+  padding-left: 8px;
   background: rgb(170, 196, 196);
   border-radius: 10px;
+  margin:5px 5px 5px 5px;
 }
 
 .blog{
@@ -49,9 +49,10 @@
   border: 2px solid rgb(42, 247, 151);
 }
 
-.expand {
+.short, .expandedLong {
   transition: all .2s ease-in-out;
+  cursor: pointer;
 }
-.expand:hover{
+.short:hover, .expandedLong:hover{
   font-weight: bolder;
 }

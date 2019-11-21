@@ -9,6 +9,7 @@ const User = require('../models/user')
 loginRouter.post('/', async(request, response)=>{
   const {username, password} = request.body
 
+
   const user = await User.findOne({username})
   const passwordCorrect = user === null
   ? false
@@ -19,7 +20,7 @@ loginRouter.post('/', async(request, response)=>{
       error: 'Invalid credential or combination'
     })
   }
-
+  
   const encodeUser = {
     username: user.username,
     id: user._id

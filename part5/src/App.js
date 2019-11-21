@@ -4,16 +4,17 @@ import LoginForm from './components/LoginForm'
 import Notification from './components/Notification'
 import blogService from './services/blogService'
 import Blog from './components/Blog'
-import NewBlog from './components/NewBlog'
 import Button from './components/Button'
 import Toggle from './components/Toggle'
+import Wrapper from './components/Wrapper'
 
 const App =() => {
   const [blogs, setBlogs] = useState([])
   const [notify, setNotify] = useState(null)
   const [authUser, setAuthUser] = useState(null)
   const [user, setUser] = useState({ username: '', password: '' })
-  const [notCreating, setCreating] = useState(true)
+
+  const blogFormRef = React.createRef()
 
   useEffect(() => {
     blogService
@@ -44,6 +45,30 @@ const App =() => {
   }
 
   const sortedArray = blogs.sort(sortByLikes)
+
+  const deleteBlog = async (id, title, author) => {
+    const confirmDelete = window.confirm(`Delete blog "${title}" by ${author}?`)
+    if(confirmDelete){
+      try{
+        const deleteSuccess = await blogService.del(id)
+        if(deleteSuccess){
+          setNotify({ message: `blog "${title}" deleted`, type: 'success' })
+          const updateBlogs = blogs.filter(blog => blog.id!==id)
+          setBlogs(updateBlogs)
+          setTimeout(() => {
+            setNotify(null)
+          }, 1500)
+        }
+      }catch(exception){
+        setNotify({ message: 'An error occured. Please try again', type: 'error' })
+        setTimeout(() => {
+          setNotify(null)
+        }, 1500)
+      }
+    }
+  }
+
+
   return authUser === null ?
     <div>
       <Notification notify={notify}/>
@@ -57,15 +82,24 @@ const App =() => {
       <div>
         logged in as {authUser.name}
         <Button method={logout} name={'Logout'}/>
-        <NewBlog user={authUser} notify={setNotify} setBlogs={setBlogs} blogs={blogs} notCreating={notCreating} setCreating={setCreating}/>
+        <Toggle label='New Blog' ref={blogFormRef}>
+          <Wrapper
+            blogFormRef={blogFormRef}
+            user={authUser}
+            notify={setNotify}
+            setBlogs={setBlogs}
+            blogs={blogs} />
+        </Toggle>
       </div>
       <div>
         {
           sortedArray.map(blog => {
             return <Blog
-              key={blog.id} blogs={blogs} setBlogs={setBlogs} notify={setNotify} authUser={authUser}>
-              {blog}
-            </Blog>
+              key={blog.id}
+              blogs={blogs}
+              authUser={authUser}
+              deleteBlog={deleteBlog}
+              blog={blog} />
           })
         }
       </div>

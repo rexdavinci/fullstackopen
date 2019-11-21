@@ -1,14 +1,22 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import loginService from '../services/loginService'
 import blogService from '../services/blogService'
 
 const LoginForm = ({ setAuthUser, setNotify, setUser, user }) => {
 
+  LoginForm.propTypes = {
+    setAuthUser: PropTypes.func.isRequired,
+    setNotify: PropTypes.func.isRequired,
+    setUser: PropTypes.func.isRequired,
+    user: PropTypes.object.isRequired
+  }
 
   const handleUser = async({ target }) => {
-    if(target.type === 'text'){
+    const { type } = target
+    if(type === 'text'){
       setUser({ ...user, username: target.value })
-    } else{
+    } else if(type === 'password'){
       setUser({ ...user, password: target.value })
     }
   }
