@@ -1,56 +1,40 @@
-import React, { useState } from 'react'
+import React from 'react'
 import NewBlog from './NewBlog'
-import blogService from '../services/blogService'
+import { useField } from '../hooks'
 
 const Wrapper = (props) => {
-  const { blogFormRef, notify, setBlogs } = props
-
-  const [newBlog, setBlog] = useState({ title: '', url: '', author: '' })
+  const { notify, blogService, bearer } = props
+  const [author, bindAuthor, resetAuthor] = useField('')
+  const [title, bindTitle, resetTitle] = useField('')
+  const [url, bindUrl, resetUrl] = useField('')
 
   const handleSubmit = async(event) => {
     event.preventDefault()
     try{
-      const { title, url, author } = newBlog
-      if(title.length > 0 && url.length > 0 && author.length > 0){
-        const blog = await blogService.create(newBlog) // Add new blog to database
-        const newBlogs = await blogService.getBlogs() // Fetch all blogs again so that all fields are populated correctly
-        blogFormRef.current()
-        setBlogs(newBlogs) // set blogs displayed to user
-        setBlog({ title: '', url: '', author: '' })
-        notify({ message: `new blog '${blog.title}' created`, type: 'success' })
-        setTimeout(() => {
-          notify(null)
-        }, 2000)
-      } else {
-        notify({ message: 'Ensure all fields are supplied and try again', type: 'error' })
-        setTimeout(() => {
-          notify(null)
-        }, 2000)
-      }
-    }catch(exception){
-      notify({ message: 'Ensure all fields are supplied and try again', type: 'error' })
+      await blogService.create({ title, author, url }, bearer) // Add new blog to database
+      await blogService.getResource()
+      notify({ message: `New blog '${title}' created`, type: 'success' })
+      setTimeout(() => {
+        resetAuthor()
+        resetTitle()
+        resetUrl()
+        notify(null)
+      }, 2000)
+    }catch(error){
+      notify({ message: error.response.data.error, type: 'error' })
       setTimeout(() => {
         notify(null)
       }, 2000)
     }
   }
 
-  const handleBlog = ({ target }) => {
-    if(target.name === 'title'){
-      setBlog({ ...newBlog, title: target.value })
-    } else if(target.name === 'url'){
-      setBlog({ ...newBlog, url: target.value })
-    } else {
-      setBlog({ ...newBlog, author: target.value })
-    }
-  }
-
   return (
     <div>
       <NewBlog
-        newBlog={newBlog}
-        handleBlog={handleBlog}
         handleSubmit={handleSubmit}
+        titleField={bindTitle}
+        authorField={bindAuthor}
+        urlField={bindUrl}
       />
     </div>
   )

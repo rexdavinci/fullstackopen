@@ -26,11 +26,11 @@ const updateLikes = (id, updateBlog) => {
   return axios.put(`${baseUrl}/${id}`, updateBlog)
 }
 
-const del = (id) => {
+const del = (id, bearer) => {
   const config = {
-    headers: { Authorization: token }
+    headers: { Authorization: bearer }
   }
   return axios.delete(`${baseUrl}/${id}`, config)
 }
 
-export default { getBlogs, setToken, token, create, updateLikes, del }
+export default { getBlogs, setToken, create, updateLikes, del }

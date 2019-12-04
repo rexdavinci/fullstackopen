@@ -18,13 +18,13 @@ blogsRouter.post('/', async (request, response, next) => {
   try{
   const verifiedToken = decodedToken(token)
   if(!token || !verifiedToken.id){
-    return response.status(401).json({error: 'token is missing or is invalid'})
+    return response.status(401).send({error: 'token is missing or is invalid'})
   }
   // Get user info from the supplied token
   const user = await User.findById(verifiedToken.id)
   // Ensure no empty blog is saved to the DB
   if(!author || !title || !url || !user){
-    return response.status(400).json({error: 'enter all fields to create a blog'})
+    return response.status(400).send({error: 'enter all fields to create a blog'})
   }
   // Create new record
   const blog = new Blog({

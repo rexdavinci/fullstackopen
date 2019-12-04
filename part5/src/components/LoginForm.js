@@ -1,39 +1,30 @@
 import React from 'react'
+import { useField } from '../hooks'
 import PropTypes from 'prop-types'
 import loginService from '../services/loginService'
-import blogService from '../services/blogService'
 
-const LoginForm = ({ setAuthUser, setNotify, setUser, user }) => {
+const LoginForm = ({ setAuthUser, setNotify, setBearer }) => {
+  const [username, bindUsername, resetUsername] = useField('')
+  const [password, bindPassword, resetPassword] = useField('')
 
   LoginForm.propTypes = {
     setAuthUser: PropTypes.func.isRequired,
-    setNotify: PropTypes.func.isRequired,
-    setUser: PropTypes.func.isRequired,
-    user: PropTypes.object.isRequired
+    setNotify: PropTypes.func.isRequired
   }
 
-  const handleUser = async({ target }) => {
-    const { type } = target
-    if(type === 'text'){
-      setUser({ ...user, username: target.value })
-    } else if(type === 'password'){
-      setUser({ ...user, password: target.value })
-    }
-  }
-
-  const handleLogin =async (event) => {
+  const handleLogin = async event => {
     event.preventDefault()
     try{
-      const { username, password } = user
       const result = await loginService.login({ username, password })
-      blogService.setToken(result.token)
+      resetUsername()
+      resetPassword()
       setAuthUser(result)
-      setUser({ username: '', password: '' })
+      setBearer(`bearer ${result.token}`)
       window.localStorage.setItem(
         'loggedBlogger', JSON.stringify(result)
       )
-    }catch(exception){
-      setNotify({ message: 'Incorrect credentials or combination', type: 'error' })
+    }catch(error){
+      setNotify({ message: error.response.data.error, type: 'error' })
       setTimeout(() => {
         setNotify(null)
       }, 5000)
@@ -46,11 +37,11 @@ const LoginForm = ({ setAuthUser, setNotify, setUser, user }) => {
       <form onSubmit={handleLogin}>
         <div>
           <label htmlFor="username">Username: </label>
-          <input type="text" value={user.username} onChange={handleUser}/>
+          <input {...bindUsername} type='text'/>
         </div>
         <div>
           <label htmlFor="password">Password: </label>
-          <input type="password" value={user.password} onChange={handleUser}/>
+          <input {...bindPassword} type='password'/>
         </div>
         <div>
           <button>Login</button>

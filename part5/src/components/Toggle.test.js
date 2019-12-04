@@ -13,12 +13,9 @@ describe('<Toggle /> Component Test Suite', () => {
     )
   })
 
-  test('renders its children', () => {
-    component.container.querySelector('.testDiv')
-  })
-
   test('at start, the children are not displayed', () => {
     const div = component.container.querySelector('.toggleContent')
+
     expect(div).toHaveStyle('display: none')
   })
 

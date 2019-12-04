@@ -1,6 +1,5 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
-// import { prettyDOM } from '@testing-library/dom'
 import Blog from './Blog'
 
 // Blog Test
@@ -36,7 +35,7 @@ describe('<Blog /> Component Test Suite', () => {
 
   })
 
-  describe('on first render', ()=>{
+  describe('on first render', () => {
     component = render(
       <Blog blogs={[]} authUser={authUser} blog={blog} label={'Delete'}/>
     )
