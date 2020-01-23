@@ -72,6 +72,18 @@ blogsRouter.put('/:id', async (request, response, next)=>{
   }
 })
 
+blogsRouter.post('/:id/comments', async (request, response, next) => {
+  const { comment } = request.body
+  try{
+    const blog = await Blog.findById(request.params.id)
+    blog.comments.push(comment)
+    blog.save()
+    response.json(blog.toJSON())
+  }catch(exception){
+    next(exception)
+  }
+})
+
 blogsRouter.delete('/:id', async(request, response, next)=>{
   try{
     const { token, params } = request
