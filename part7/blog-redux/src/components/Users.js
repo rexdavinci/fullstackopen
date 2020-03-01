@@ -15,27 +15,29 @@ const Users = props => {
 		return arr.map(user => {
 			return (
 				<tr key={user.id}>
-					<td><Link to={`/users/${user.id}`}>{user.name}</Link></td>
-					<td>{user.blogs.length}</td>
+					<td className='user-name'><Link to={`/users/${user.id}`}>{user.name} ({user.username})</Link></td>
+					<td className='user-blogs'>{user.blogs.length}</td>
 				</tr>
 			)
 		})
 	}
 	
 	return (
-		<div>
+		<div className='users'>
 			<h2>Users</h2>
-			{
-				users.length === 0 ? null : <table>
-					<tbody>
-						<tr>
-							<th></th>
-							<th>blogs created</th>
-						</tr>
-						{mapUsers(users)}
-					</tbody>
-				</table>
-			}
+			<div className='users-list'>
+				{
+					users.length === 0 ? null : <table>
+						<tbody>
+							<tr>
+								<th></th>
+								<th>blogs created</th>
+							</tr>
+							{mapUsers(users)}
+						</tbody>
+					</table>
+				}
+			</div>
 
 		</div>
 	)

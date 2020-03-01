@@ -23,20 +23,15 @@ const Toggle = React.forwardRef((props, ref) => {
   })
 
   return (
-    <div className='toggle'>
-      <div style={hideWhenVisible} className='login-div'>
-        { 
-          label === 'Login...' || 'New Blog' ? <Button method={toggleVisibility} name={label} classStyle={'login-btn'}/>: 
-          <Button method={toggleVisibility} name={label}/>
-        }
+    <>
+      <div style={hideWhenVisible}>
+        <Button method={toggleVisibility} name={label}/>
       </div>
-      <div style={showWhenVisible} className='toggle-content'>
+      <div style={showWhenVisible} className='toggleContent'>
         {children}
-        <div className='submit-row'>
-          <Button method={toggleVisibility} name={'Cancel'} classStyle={'cancel-btn'}/>
-        </div>
+        <Button method={toggleVisibility} name={'Cancel'}/>
       </div>
-    </div>
+    </>
   )
 
 })

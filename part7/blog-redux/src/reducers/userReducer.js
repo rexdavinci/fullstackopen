@@ -26,6 +26,24 @@ export const login = credentials => {
   }
 }
 
+export const signup = credentials => {
+  return async dispatch => {
+    try{
+      const response = await userService.signup(credentials)
+      blogService.setToken(response.token)
+      window.localStorage.setItem(
+        'loggedBlogger', JSON.stringify(response)
+      )
+      dispatch({
+        type: 'SIGNUP',
+        data: response
+      })
+    }catch(error){
+      dispatch(notifyError(error))
+    }
+  }
+}
+
 export const addNewBlogToUser = blog => {
   return async dispatch => {
     dispatch({
@@ -58,6 +76,8 @@ export const reloadUser = userInfo => {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case 'SIGNUP':
+      return {...state, authUser: action.data}
     case 'LOGIN':
       return {...state, authUser: action.data}
     case 'RELOAD_USER':

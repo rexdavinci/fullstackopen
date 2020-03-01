@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom'
+import { Route, NavLink } from 'react-router-dom'
 import './App.css'
 import LoginForm from './components/LoginForm'
 import Notification from './components/Notification'
@@ -34,37 +34,41 @@ const App = props => {
 
   const getById = (id, arr) => arr.find(item=>item.id===id)
 
-  return !authUser ?
+  return (
     <div className='App'>
-      <Notification />
-      <Toggle label='Login...'>
-        <LoginForm />
-      </Toggle>
-    </div> :
-    <Router>
-      <div className='App'>
-        <>
-          <nav className='nav'>
-            <div className='nav-link-group'>
-              <NavLink className='App-logo' to='/'>Blog App</NavLink>
-              <NavLink className='navLink' to='/users'>users</NavLink>
-            </div>
-            <div className='nav-notification'>
-              <Notification />
-            </div>
-            <div className='nav-authentication'>
-              <span className='logout'>logged in as {authUser.name}<Button method={logout} name={'Logout'}/></span>
-            </div>
-          </nav>
-          <div className='main'>
-            <Route exact path='/' render={()=> <Blogs />} />
-            <Route exact path='/users' render={()=> <Users />} />
-            <Route exact path='/users/:id' render={({match})=> <User user={getById(match.params.id, users)}/>} />
-            <Route exact path='/blogs/:id' render={({match})=> <Blog blog={getById(match.params.id, blogs)}/>} />
-          </div>
-        </>
+      <nav className='nav'>
+        <div className='nav-link-group'>
+          <NavLink className='App-logo' to='/'>Erudite</NavLink>
+          { authUser ? <NavLink className='nav-link' to='/users'>users</NavLink> : null }
+        </div>
+        <div className='nav-authentication'>
+          {authUser ? <span className='logout'><em>Hi</em>, {authUser.name}<Button method={logout} classStyle={'logout-btn'} name={'Logout'}/></span>: null}
+        </div>
+      </nav>
+      <div className='nav-notification'>
+        <Notification />
       </div>
-    </Router>
+      {
+        !authUser ?
+          <div className='App'>
+            <div className='login-view'>
+              <Toggle label='Login...'>
+                <LoginForm />
+              </Toggle>
+            </div>
+          </div> :
+          <div className='App'>
+            <div className='main'>
+              <Route exact path='/' render={()=> <Blogs />} />
+              <Route exact path='/users' render={()=> <Users />} />
+              <Route exact path='/users/:id' render={({match})=> <User user={getById(match.params.id, users)}/>} />
+              <Route exact path='/blogs/:id' render={({match})=> <Blog blog={getById(match.params.id, blogs)}/>} />
+            </div>
+          </div>
+      }
+    </div>
+  )
+    
 }
 
 const mapStateToProps = state => {

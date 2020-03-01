@@ -51,9 +51,10 @@ export const newComment = (id, comment) => {
   return async dispatch => {
     try{
       await blogService.addComment(id, comment)
+      console.log(comment)
       dispatch({
         type: 'ADD_COMMENT',
-        data: {id, comment: comment.comment}
+        data: {id, comment: comment}
       })
     }catch(error){
       dispatch(notifyError(error))

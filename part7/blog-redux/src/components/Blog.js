@@ -17,35 +17,46 @@ const Blog = props => {
     }
   }
 
+  const sortByTime=(comment1,comment2) => {
+    if(comment1.added < comment2.added) return 1
+    if(comment1.added === comment2.added) return 0
+    if(comment1.added > comment2.added) return -1
+  }
+
   const addComment = e => {
     e.preventDefault()
-    postComment(blog.id, {comment})
+    postComment(blog.id, {comment, by: authUser.username, added: new Date().toLocaleString()})
     resetComment()
   }
 
   return !blog ? <Redirect to='/' /> : (
-    <div>
-      <h2>{blog.title} - {blog.author}</h2>
-        <a href={blog.url}>{blog.url}</a>
+    <div className='blog-detail'>
+      <h3 className='blog-title'>{blog.title} - <em>{blog.author}</em></h3>
+        <p className='blog-link'><a href={blog.url} rel='noopener noreferrer' target='_blank'><em>Link: {blog.url}</em></a></p>
+        <p className='blog-added-by'>Added By: {blog.user.name}</p>
         <p><span>{blog.likes} likes </span>
-          <Button name={'Like'} method={() => voteFor(blog)}/></p>
-        <p>added by {blog.user.name}</p>
-        <h3>Comments</h3>
+        {
+          blog.user.username === authUser.username ? null :
+          <Button name={'Like'} method={() => voteFor(blog)} classStyle={'like-btn btn'}/>
+        }
+        {
+          blog.user.username === authUser.username ?
+            <Button name={'Delete'} method={() => deleteBlog(blog.id, blog.title, blog.author)} classStyle={'delete-blog-btn btn'}/> :
+            null
+        }
+        </p>
           <form onSubmit={addComment}>
-            <div>
-              <label htmlFor="username">Username: </label>
+            <div className='form-row row'>
+              <label htmlFor='comment'>Comment: </label>
               <input {...bindComment} type='text'/>
               </div>
-              <Button name={'Add Comment'}/>
+              <div className='submit-row div-submit'>
+                <Button name={'Add Comment'} classStyle={'add-comment-btn btn'}/>
+              </div>
           </form>
-          <ul>
-            {blog.comments.map((comment, index) => <li key={index}>{comment}</li>)}
+          <ul className='comments'>
+            {blog.comments.sort(sortByTime).map(comment => <li className='comment' key={comment.added}>{comment.comment} - <em>{comment.by}</em> <small>({comment.added})</small></li>)}
           </ul>
-          {
-            blog.user.username === authUser.username ?
-              <Button name={'Delete'} method={() => deleteBlog(blog.id, blog.title, blog.author)}/> :
-              null
-          }
     </div>
   )
 }

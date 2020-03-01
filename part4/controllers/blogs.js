@@ -73,11 +73,11 @@ blogsRouter.put('/:id', async (request, response, next)=>{
 })
 
 blogsRouter.post('/:id/comments', async (request, response, next) => {
-  const { comment } = request.body
+  const { comment, by } = request.body
   try{
     const blog = await Blog.findById(request.params.id)
-    blog.comments.push(comment)
-    blog.save()
+    await blog.comments.push({comment, by, added: new Date().toLocaleString()})
+    await blog.save({new: true})
     response.json(blog.toJSON())
   }catch(exception){
     next(exception)

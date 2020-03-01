@@ -14,7 +14,7 @@ describe('<Toggle /> Component Test Suite', () => {
   })
 
   test('at start, the children are not displayed', () => {
-    const div = component.container.querySelector('.toggle-content')
+    const div = component.container.querySelector('.toggleContent')
 
     expect(div).toHaveStyle('display: none')
   })
@@ -22,7 +22,7 @@ describe('<Toggle /> Component Test Suite', () => {
   test('after clicking the button, children are displayed', () => {
     const button = component.getByText('expand')
     fireEvent.click(button)
-    const div = component.container.querySelector('.toggle-content')
+    const div = component.container.querySelector('.toggleContent')
     expect(div).not.toHaveStyle('display: none')
   })
 
@@ -32,7 +32,7 @@ describe('<Toggle /> Component Test Suite', () => {
 
     const closeButton = component.getByText('Cancel')
     fireEvent.click(closeButton)
-    const div = component.container.querySelector('.toggle-content')
+    const div = component.container.querySelector('.toggleContent')
     expect(div).toHaveStyle('display: none')
   })
 })

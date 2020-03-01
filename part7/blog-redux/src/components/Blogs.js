@@ -15,22 +15,28 @@ const Blogs = props => {
   }
 
   const sortedByLikes = blogs.sort(sortByLikes)
-
   return (
     <div>
+      {
+        sortedByLikes.length === 0 ? <p className='blogs-exist'> There are no blogs yet</p> :
+        null
+      }
       <Toggle label='New Blog' ref={blogFormRef}>
         <Wrapper
           blogFormRef={blogFormRef}/>
       </Toggle>
-      {
-        sortedByLikes.map(blog=>{
-          return <div 
-            key={blog.id} 
-            className='blog'>
-            <Link to={`/blogs/${blog.id}`}>{blog.title}</Link>
-          </div>
-        })
-      }
+      <div className='blogs'>
+        {
+          sortedByLikes.map(blog=>{
+            return <Link to={`/blogs/${blog.id}`}
+              key={blog.id}>
+              <div className='blog'>
+                <p>{blog.title} <small className='added-by'><em>added by <span>{blog.user.username}</span></em></small></p>
+              </div>
+            </Link>
+          })
+        }
+      </div>
     </div>
   )
 }
@@ -41,11 +47,6 @@ const mapStateToProps = state => {
     authUser: state.users.authUser
   }
 }
-
-// const mapDispatchToProps = {
-//   voteFor: upvote,
-//   removeBlog: deleteBlog,
-// }
 
 const connectedBlogs = connect(mapStateToProps, null)(Blogs)
 
