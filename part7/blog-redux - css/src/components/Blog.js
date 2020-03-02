@@ -4,8 +4,7 @@ import { useField } from '../hooks'
 import Button from './Button'
 
 import { upvote, deleteBlog, newComment } from '../reducers/blogReducer'
-import { Redirect, Link } from 'react-router-dom'
-import { Container, Header, Form, Input } from 'semantic-ui-react'
+import { Redirect } from 'react-router-dom'
 
 const Blog = props => {
   const { blog, authUser, voteFor, removeBlog, postComment } = props
@@ -31,29 +30,34 @@ const Blog = props => {
   }
 
   return !blog ? <Redirect to='/' /> : (
-    <Container className='blog-detail'>
-      <Header as='h3' textAlign='center'>{blog.title} - <em>{blog.author}</em></Header>
-        <Header as='p' className='blog-link' textAlign='center'><a href={blog.url} rel='noopener noreferrer' target='_blank'><em>Link: {blog.url}</em></a></Header>
-        <Header as='p' textAlign='center' className='blog-added-by'>Added By: <Link to={`/users/${blog.user.id}`}>{blog.user.name}</Link></Header>
+    <div className='blog-detail'>
+      <h3 className='blog-title'>{blog.title} - <em>{blog.author}</em></h3>
+        <p className='blog-link'><a href={blog.url} rel='noopener noreferrer' target='_blank'><em>Link: {blog.url}</em></a></p>
+        <p className='blog-added-by'>Added By: {blog.user.name}</p>
         <p><span>{blog.likes} likes </span>
         {
-          blog.user.username === authUser.username ? 
-          <Button classStyle={'basic red'} name={'Delete'} method={() => deleteBlog(blog.id, blog.title, blog.author)} /> :
-          <Button classStyle={'basic green'} name={'Like'} method={() => voteFor(blog)} />
+          blog.user.username === authUser.username ? null :
+          <Button name={'Like'} method={() => voteFor(blog)} classStyle={'like-btn btn'}/>
+        }
+        {
+          blog.user.username === authUser.username ?
+            <Button name={'Delete'} method={() => deleteBlog(blog.id, blog.title, blog.author)} classStyle={'delete-blog-btn btn'}/> :
+            null
         }
         </p>
-          <Form onSubmit={addComment}>
-            <Form.Field className='form-row row'>
-              <Input label='Comment' {...bindComment} />
-            </Form.Field>
-            <Form.Field className='submit-row'>
-              <Button name={'Add Comment'} classStyle={'olive'}/>
-            </Form.Field>
-          </Form>
+          <form onSubmit={addComment}>
+            <div className='form-row row'>
+              <label htmlFor='comment'>Comment: </label>
+              <input {...bindComment} type='text'/>
+              </div>
+              <div className='submit-row div-submit'>
+                <Button name={'Add Comment'} classStyle={'add-comment-btn btn'}/>
+              </div>
+          </form>
           <ul className='comments'>
             {blog.comments.sort(sortByTime).map(comment => <li className='comment' key={comment.added}>{comment.comment} - <em>{comment.by}</em> <small>({comment.added})</small></li>)}
           </ul>
-    </Container>
+    </div>
   )
 }
 

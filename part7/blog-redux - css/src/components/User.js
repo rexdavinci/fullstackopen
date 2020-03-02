@@ -1,14 +1,13 @@
 import React from 'react'
 import { Redirect, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { Container, Header } from 'semantic-ui-react'
 
 const User = props => {
   const { user } = props
 
   return !user ? <Redirect to='/users' /> : (
-    <Container className='user-blog-list'>
-      <Header as='h2' textAlign='center'>{user.name}</Header>
+    <div className='user-blog-list'>
+      <h2>{user.name}</h2>
       <h4>Added Blogs</h4>
       <ul className='user-blog-list-items'>
         {
@@ -17,7 +16,7 @@ const User = props => {
           </li>)
         }
       </ul>
-    </Container>
+    </div>
   )
 }
 

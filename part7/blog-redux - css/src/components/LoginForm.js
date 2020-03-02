@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import { login } from '../reducers/userReducer'
 import Button from './Button'
 import SignupForm from './SignupForm'
-import { Header, Container, Form } from 'semantic-ui-react'
 
 const LoginForm = props => {
   const [register, setRegister] = useState(false)
@@ -31,25 +30,25 @@ const LoginForm = props => {
   return (
     <>
     {
-      !register ? <Container>
-        <Header as='h2' textAlign='center' id='login-form'>Login</Header>
-        <Form onSubmit={handleLogin}>
-          <Form.Field>
-            <label>Username</label>
-            <input placeholder='Username...' {...bindUsername} />
-          </Form.Field>
-          <Form.Field>
-            <label>Password</label>
-            <input placeholder='Password...' {...bindPassword} type='password' />
-          </Form.Field>
-          <div className='login-btn-row'>
-            <Button color={'olive'} name={'Login'} classStyle={'login-btn'} />
+      !register ? <div className='login-form'>
+        <h2>Login Form</h2>
+        <form onSubmit={handleLogin}>
+          <div className='form-row'>
+            <label htmlFor="username">Username: </label><br/>
+            <input {...bindUsername} type='text'/>
           </div>
-        </Form>
-      </Container> : <SignupForm setRegister={setRegister}/>
+          <div className='form-row'>
+            <label htmlFor="password">Password: </label><br/>
+            <input {...bindPassword} type='password'/>
+          </div>
+          <div className='submit-row'>
+            <Button name={'Login'} classStyle={'submit-btn'}/>
+          </div>
+        </form>
+      </div> : <SignupForm setRegister={setRegister}/>
     }
-    <div className='login-btn-row'>
-      <Button name={ register ? 'Login' : 'Signup'} classStyle={'secondary toggle-login-btn'} method={toggleRegister}/>
+    <div className='submit-row'>
+      <Button name={ register ? 'Login' : 'Signup'} classStyle={'signup-btn'} method={toggleRegister}/>
     </div>
     </>
   )

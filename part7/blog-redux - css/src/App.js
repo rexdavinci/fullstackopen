@@ -12,7 +12,6 @@ import User from './components/User'
 import { connect } from 'react-redux'
 import { getBlogs } from './reducers/blogReducer'
 import { reloadUser } from './reducers/userReducer'
-import { Container, Segment, Header, Sticky } from 'semantic-ui-react'
 
 const App = props => {
   const { fetchBlogs, blogs, returningUser, authUser, users } = props
@@ -37,29 +36,27 @@ const App = props => {
 
   return (
     <div className='App'>
-    <Sticky>
-      <Segment clearing>
-        <Header floated='left' className='nav-logo'>
-          <NavLink to='/' className='App-logo'>Erudite</NavLink>
+      <nav className='nav'>
+        <div className='nav-link-group'>
+          <NavLink className='App-logo' to='/'>Erudite</NavLink>
           { authUser ? <NavLink className='nav-link' to='/users'>users</NavLink> : null }
-        </Header>
-        <Header floated='right' className='nav-links'>
-          {authUser ? <span className='logout'><span className='auth-name'><em>Hi</em>, {authUser.name}</span> <Button method={logout} name={'Logout'} classStyle={'logout-btn'}/></span>: null}
-        </Header>
-      </Segment>
-    </Sticky>
+        </div>
+        <div className='nav-authentication'>
+          {authUser ? <span className='logout'><em>Hi</em>, {authUser.name}<Button method={logout} classStyle={'logout-btn'} name={'Logout'}/></span>: null}
+        </div>
+      </nav>
       <div className='nav-notification'>
         <Notification />
       </div>
       {
         !authUser ?
-          <Container>
+          <div className='App'>
             <div className='login-view'>
               <Toggle label='Login...'>
                 <LoginForm />
               </Toggle>
             </div>
-          </Container> :
+          </div> :
           <div className='App'>
             <div className='main'>
               <Route exact path='/' render={()=> <Blogs />} />

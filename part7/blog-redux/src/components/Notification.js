@@ -1,17 +1,28 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Message } from 'semantic-ui-react'
 
 const Notification = props => {
   const { notify } = props
-  if(notify !== null){
-    const { message, type } = notify
-    return  (
-      <span className={type}>
-        {message}
-      </span>
-    )
-  }
-  return null
+  return (
+    <div className='notification'>
+      {
+        !notify ? null : notify.type === 'red' ? (
+          <Message
+              error
+              header='Error'
+              content={notify.message}
+            />
+        ) : notify.type === 'green' ? (
+          <Message
+              success
+              header='Success'
+              content={notify.message}
+            />
+        ) : null
+      }
+  </div>
+  )
 }
 
 const mapStateToProps = state => {

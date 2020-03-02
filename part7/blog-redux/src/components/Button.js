@@ -1,9 +1,10 @@
 import React from 'react'
+import { Button } from 'semantic-ui-react'
 
-const Button = ({ method, name, classStyle }) => {
+const ButtonComp = ({ color, method, name, classStyle }) => {
   return (
-    <button onClick={method} className={classStyle}>{name}</button>
+    <Button color={color} onClick={method} content={name} className={classStyle} />
   )
 }
 
-export default Button
+export default ButtonComp

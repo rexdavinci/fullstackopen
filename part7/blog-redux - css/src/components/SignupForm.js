@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { signup } from '../reducers/userReducer'
 import Button from './Button'
-import { Container, Header, Form } from 'semantic-ui-react'
 
 const SignupForm = props => {
   const { signup } = props
@@ -25,26 +24,26 @@ const SignupForm = props => {
   }
 
   return (
-    <Container>
-        <Header as='h2' textAlign='center' id='login-form'>Register</Header>
-        <Form onSubmit={handleSignup}>
-          <Form.Field>
-            <label>Username</label>
-            <input placeholder='Username...' {...bindUsername} />
-          </Form.Field>
-          <Form.Field>
-            <label>Fullname</label>
-            <input placeholder='Fullname...' {...bindFullname} />
-          </Form.Field>
-          <Form.Field>
-            <label>Password</label>
-            <input placeholder='Password...' {...bindPassword} type='password' />
-          </Form.Field>
-          <div className='signup-btn-row'>
-            <Button color={'olive'} name={'Register'} classStyle={'signup-btn'} />
-          </div>
-        </Form>
-    </Container>
+    <div className='register-form'>
+      <h2>Register</h2>
+      <form onSubmit={handleSignup}>
+        <div className='form-row'>
+          <label htmlFor="username">Username: </label><br/>
+          <input {...bindUsername} type='text'/>
+        </div>
+        <div className='form-row'>
+          <label htmlFor='full-name'>Full Name: </label><br/>
+          <input {...bindFullname} type='text'/>
+        </div>
+        <div className='form-row'>
+          <label htmlFor="password">Password: </label><br/>
+          <input {...bindPassword} type='password'/>
+        </div>
+        <div className='submit-row'>
+          <Button name={'Register'} classStyle={'submit-btn'}/>
+        </div>
+      </form>
+    </div>
   )
 }
 

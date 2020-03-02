@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Wrapper from './Wrapper'
 import Toggle from './Toggle'
-import { Header, Container } from 'semantic-ui-react'
 
 const Blogs = props => {
   const { blogs } = props
@@ -17,9 +16,9 @@ const Blogs = props => {
 
   const sortedByLikes = blogs.sort(sortByLikes)
   return (
-    <Container>
+    <div>
       {
-        sortedByLikes.length === 0 ? <Header as='p' textAlign='center'> There are no blogs yet</Header> :
+        sortedByLikes.length === 0 ? <p className='blogs-exist'> There are no blogs yet</p> :
         null
       }
       <Toggle label='New Blog' ref={blogFormRef}>
@@ -38,7 +37,7 @@ const Blogs = props => {
           })
         }
       </div>
-    </Container>
+    </div>
   )
 }
 

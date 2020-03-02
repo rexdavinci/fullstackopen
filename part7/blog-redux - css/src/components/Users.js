@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { Container, Header } from 'semantic-ui-react'
 
 import { getUsers } from '../reducers/userReducer'
 
@@ -24,8 +23,8 @@ const Users = props => {
 	}
 	
 	return (
-		<Container className='users'>
-			<Header as='h2' textAlign='center'>Users</Header>
+		<div className='users'>
+			<h2>Users</h2>
 			<div className='users-list'>
 				{
 					users.length === 0 ? null : <table>
@@ -40,7 +39,7 @@ const Users = props => {
 				}
 			</div>
 
-		</Container>
+		</div>
 	)
 }
 
