@@ -1,0 +1,478 @@
+@import url('https://fonts.googleapis.com/css?family=Assistant|Bebas+Neue&display=swap');
+
+
+.ui.clearing.segment{
+  background-color: #B5CC18;
+  border-radius: 0;
+}
+
+#login-form{
+  margin-top: 1rem;
+}
+
+.notification{
+  margin: 0.5rem auto 0.5rem auto;
+  width: 50%;
+  height: 15vh;
+}
+
+.login-btn-row, .signup-btn-row, .submit-row, .cancel-btn-row{
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.login-btn, .signup-btn, .toggle-login-btn, .submit-btn{
+  width: 35%;
+}
+
+.ui.button.cancel-btn{
+  background: none;
+  border: none;
+  font-style: italic;
+}
+.ui.button.cancel-btn:hover{
+  background: none;
+  color: red;
+  font-weight: bolder;
+  cursor: pointer;
+}
+
+.ui.left.floated.header.nav-logo{
+  margin-top: 1rem;
+  max-width: 40%;
+  /* border: 1px solid red; */
+}
+
+.nav-link{
+  font-style: italic;
+}
+
+.nav-link:hover{
+  color:#FFF4FF;
+}
+
+.ui.right.floated.header.nav-links{
+  margin-top: 1rem;
+  /* border: 1px solid green; */
+}
+
+.App-logo{
+  margin-right: 1rem;
+  margin-left: 0.8rem;
+  font-family: 'Bebas Neue', cursive;
+  text-decoration: none;
+  color: #eee;
+  font-size: 2.8rem;
+  letter-spacing: 0.5rem;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.App-logo:hover{
+  color: #fff;
+}
+
+.logout{
+  font-size: 1rem;
+}
+
+.auth-name{
+  margin-right: 3px;
+  color: black;
+}
+
+.ui.button.logout-btn, .ui.button.logout-btn:active, .ui.button.logout-btn:visited{
+  background: none;
+  padding: 0;
+  font-style: italic;
+  color: #4183c4;
+  letter-spacing: 1px;
+  margin-left: 4px;
+  outline: none;
+}
+
+.ui.button.logout-btn:hover{
+  color: #FFF4FF;
+  background: none;
+}
+
+.login-view, .toggle{
+  display: flex;
+  justify-content: center;
+  height: 60%;
+}
+
+.toggle-row{
+  margin-top: 5%;
+  padding-bottom: 1rem;
+}
+
+.blogs{
+  width: 50%;
+  margin: 1.3rem auto 0 auto;
+}
+
+.blog p{
+  font-size: 1.3rem;
+  padding: 4px;
+  text-align: center;
+}
+
+.added-by{
+  color: black;
+  font-weight: bold;
+  margin-left: 0.5rem;
+}
+
+.ui.center.aligned.header.blog-link, h3.ui.center.aligned.header{
+  margin-bottom: 0;
+}
+
+.blog-link em{
+  font-size: 1rem;
+}
+
+.ui.center.aligned.header.blog-added-by{
+  margin-top: 0;
+  font-size: 0.8rem;
+}
+
+
+.users-list{
+  width: 80%;
+  margin: 0 auto;
+}
+
+td{
+  padding:3.5px;
+}
+
+.user-blogs{
+  text-align: center;
+}
+
+/*
+.nav{
+  background-color: rgb(216, 176, 66);
+  line-height: 3rem;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+}
+
+
+.nav-link{
+  text-decoration: none;
+  font-family: 'Assistant', sans-serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  font-weight: bold;
+  color: #fff;
+}
+
+.logout-btn, .login-btn, .btn{
+  padding: 0.4rem 1rem;
+  border: none;
+  border-radius: 8px;
+  margin: 0 1rem;
+  font-weight: bold;
+}
+
+.logout-btn:focus, .login-btn:focus, .cancel-btn:focus, .signup-btn:focus, .logout-btn:visited, .logout-btn:active{
+  background-color: rgb(243, 229, 189);
+  outline: none;
+}
+
+.logout-btn:hover{
+  cursor: pointer;
+}
+
+.nav-notification{
+  height: 2rem;
+  padding: 0.3rem;
+  width: 50%;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.success{
+  color: rgb(50, 161, 143);
+}
+
+.error{
+  color: rgb(241, 78, 78);
+}
+
+.success, .error{
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+.toggle{
+  margin: 0 auto;
+  display: flex;
+}
+
+.toggle-content{
+  height: 80vh;
+  width: 50vw;
+  margin: 0 auto;
+}
+
+h2, h3{
+  text-align: center;
+}
+
+form{
+  margin: 0 auto;
+  width: 50%;
+}
+
+.form-row {
+  margin: 1rem auto;
+  width: 70%;
+}
+
+.form-row label{
+  padding: 0.5rem 0.5rem 0.5rem 0;
+  
+}
+
+.form-row input{
+  margin: 0.5rem auto;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.blogs{
+  margin: 1rem auto;  width: 80%;
+}
+
+.login-div{
+  margin: auto;
+}
+
+.login-btn{
+  border: 1px solid #bdb
+}
+
+.login-btn:hover, .login-btn:active, .btn{
+  background-color: rgb(216, 176, 66);
+  cursor: pointer;
+  color: #fff;
+}
+
+.blogs-exist{
+  text-align: center;
+  color: rgb(233, 177, 23);
+  font-weight: bolder;
+}
+
+.submit-row{
+  width: 70%;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.submit-btn{
+  padding: 0.3rem 1rem;
+  width: 45%;
+}
+
+.submit-btn:hover{
+  border: 2px solid rgb(216, 176, 66);
+  color: rgb(216, 176, 66);
+  background: none;
+}
+
+
+.cancel-btn, .signup-btn{
+  background: none;
+  border: none;
+  font-style: italic;
+}
+.cancel-btn:hover, .signup-btn:hover{
+  color: red;
+  font-weight: bolder;
+  cursor: pointer;
+}
+.signup-btn:hover{
+  color: green;
+}
+
+.cancel-btn:focus, .signup-btn:focus{
+  background: none;
+}
+
+.blogs a{
+  text-decoration: none;
+}
+
+.blog p{
+  font-weight: bold;
+  color: inherit;
+}
+
+.blog{
+  border: 2px solid gray;
+  padding: 1rem;
+  border-radius: 5px;
+  margin-top: 1rem;
+}
+.blog:hover{
+  border: 2px solid rgb(233, 177, 23);
+  cursor: pointer;
+  color: green;
+}
+
+.added-by{
+  color: rgb(142, 114, 37);
+  outline: #aaa;
+  font-weight: normal;
+}
+
+.short, .expandedLong {
+  transition: all .2s ease-in-out;
+  cursor: pointer;
+}
+.short:hover, .expandedLong:hover{
+  font-weight: bolder;
+}
+
+.users{
+  width: 70%;
+  margin: 0 auto;
+}
+
+.users-list{
+  margin: 0 auto;
+  width: 80%;
+}
+
+.users-list>table{
+  margin: 1rem auto;
+}
+
+.user-name, .user-blogs{
+  padding: 0.7rem
+}
+
+.user-blogs{
+  text-align: center;
+}
+
+.user-name a, .blog-item a, .blog-link a{
+  text-decoration: none;
+  color: green;
+}
+.user-name a:active, .user-name a:hover, .user-name a:visited, .blog-item a:active, .blog-item a:visited, .blog-item a:hover,
+.blog-link a:active, .blog-link:visited, .blog-link:hover {
+  color: green;
+}
+
+.user-blog-list{
+  width: 70%;
+  margin: 0 auto;
+}
+.user-blog-list ul{
+  margin-left: 1rem;
+}
+
+.user-blog-list h4{
+  margin-top: 1rem;
+}
+
+.blog-item{
+  margin: 1rem auto;
+}
+
+.blog-detail{
+  width: 60%;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.blog-detail ul{
+  list-style-type: none;
+}
+
+
+.blog-title{
+  text-transform: capitalize;
+}
+
+.blog-added-by, .blog-link{
+  text-align: center
+}
+
+.blog-added-by{
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+}
+
+.add-comment-btn, .delete-blog-btn{
+  background-color: transparent;
+  border: 1px solid black;
+  color: black;
+  border-radius: 0;
+}
+
+.add-comment-btn:hover{
+  border: 1px solid rgb(177, 143, 49);
+  color: rgb(177, 143, 49);
+
+}
+
+.like-btn{
+  border: 1px solid black;
+  margin: 0;
+  background-color: rgb(7, 154, 137);
+  padding: 0.1rem 0.5rem;
+  border-radius: 0;
+}
+
+.like-btn:active, .like-btn:hover{
+  background-color: green;
+}
+
+.delete-blog-btn:hover{
+  border: 1px solid red;
+  color: red;
+}
+
+.row input{
+  margin-bottom: 0;
+}
+
+.div-submit{
+  margin-top: 0;
+  padding: 0;
+}
+
+.comment{
+  margin-top: 1rem;
+}
+
+.main{
+  width: 90%;
+  margin: 0 auto;
+}
+@media (max-width: 700px){
+  .submit-row{
+    padding: 1px;
+  }
+  .submit-btn{
+    width: 100%;
+  }
+  form{
+    width: 100%;
+    margin: 0;
+  }
+  .form-row{
+    text-align: left;
+  }
+  .form-row input{
+    width: 100%;
+  }
+} */

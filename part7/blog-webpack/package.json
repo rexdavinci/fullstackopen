@@ -1,0 +1,13 @@
+{
+  "name": "blog-webpack",
+  "version": "1.0.0",
+  "description": "webpack configuration from scratch",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "webpack --mode=development",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Abdulhafiz Ahmed",
+  "license": "ISC",
+  "devDependencies": {}
+}
